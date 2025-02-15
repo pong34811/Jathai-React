@@ -1,6 +1,5 @@
 // C:\Users\admin\Desktop\git\Jathan-App\jathai_frontend\src\Pages\Dashboards\Boards\BoardCard\BoardWorkspace.js
 import React from 'react';
-import { IoFolderOpen } from 'react-icons/io5';
 import { FaEdit, FaStar, FaRegStar, FaList, FaTasks, FaCalendarAlt, FaTrash } from 'react-icons/fa';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
