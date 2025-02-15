@@ -75,9 +75,9 @@ const TaskCard = ({ list, setLists }) => {
   };
 
   const handleUpdateTask = async () => {
-    if (!editorInstance || !currentTask) return;
+    if (!editorInstance.current || !currentTask) return;  // แก้ไขเป็น editorInstance.current
     try {
-      const outputData = await editorInstance.save();
+      const outputData = await editorInstance.current.save();  // แก้ไขให้ใช้ editorInstance.current
       // ทำการ deduplicate tags ก่อนส่งไปยัง backend
       const uniqueTags = deduplicateTags(
         taskTags.map((tag) => (typeof tag === "string" ? { name: tag } : tag))
@@ -96,6 +96,7 @@ const TaskCard = ({ list, setLists }) => {
       console.error("Failed to update task:", error);
     }
   };
+  
 
   // เพิ่ม tag ใหม่ โดยตรวจสอบว่าชื่อ tag ซ้ำกับ tag ที่มีอยู่ใน state หรือไม่
   const handleAddTag = () => {
