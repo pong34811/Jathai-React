@@ -16,7 +16,6 @@ const TaskCard = ({ list, setLists }) => {
   const [isAddingTask, setIsAddingTask] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
-  const [editorInstance, setEditorInstance] = useState(null);
   const [taskColor, setTaskColor] = useState("#FFFFFF");
   // เก็บ tags เป็น array ของ object (เช่น { name: "tag1" })
   const [taskTags, setTaskTags] = useState([]);
@@ -29,19 +28,14 @@ const TaskCard = ({ list, setLists }) => {
 
   const editorRef = useRef(null);
 
-  useEffect(() => {
-    return () => {
-      if (editorInstance && typeof editorInstance.destroy === "function") {
-        editorInstance.destroy();
-      }
-    };
-  }, [editorInstance]);
+  const editorInstance = useRef(null); // เปลี่ยนจาก useState เป็น useRef
+
 
   useEffect(() => {
     if (isEditModalOpen && currentTask && editorRef.current) {
-      if (editorInstance && typeof editorInstance.destroy === "function") {
-        editorInstance.destroy();
-        setEditorInstance(null);
+      if (editorInstance.current && typeof editorInstance.current.destroy === "function") {
+        editorInstance.current.destroy();
+        editorInstance.current = null;
       }
       const editor = new EditorJS({
         holder: editorRef.current,
@@ -51,10 +45,12 @@ const TaskCard = ({ list, setLists }) => {
           list: List,
           quote: Quote,
         },
-        onReady: () => setEditorInstance(editor),
+        onReady: () => {
+          editorInstance.current = editor; // เก็บ instance ไว้ใน useRef
+        },
       });
     }
-  }, [isEditModalOpen, currentTask]);
+  }, [isEditModalOpen, currentTask]); // ✅ ไม่ต้องใส่ editorInstance เป็น dependency
 
   // เมื่อ currentTask เปลี่ยน ให้อัปเดตข้อมูลใน modal
   useEffect(() => {
