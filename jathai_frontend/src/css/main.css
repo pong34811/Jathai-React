@@ -1,0 +1,41 @@
+/* นำเข้าฟอนต์ Kanit จาก Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap');
+
+/* ตั้งค่าให้ทุกองค์ประกอบใช้ฟอนต์ Kanit */
+body {
+    font-family: 'Kanit', sans-serif;
+}
+
+.main-box {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px 50px;
+    color: black;
+    background-color: aquamarine;
+    border-radius: 20px;
+}
+
+.alert {
+    width: 400px;
+    border-color: grey;
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    animation: alertFrame 1s;
+    background-color: rgb(13, 110, 253);
+    color: white;
+    z-index: 99;
+}
+
+@keyframes alertFrame {
+    0% {
+        right: -500px;
+    }
+    100% {
+        right: 20px;
+    }
+}
+
+#logout {
+    cursor: pointer;
+}
